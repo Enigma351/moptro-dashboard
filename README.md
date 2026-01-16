@@ -1,73 +1,172 @@
-# React + TypeScript + Vite
+MOPTrO – EV Fleet Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+MOPTrO is a modern full-stack dashboard application designed to monitor and manage electric vehicle (EV) data.
+The project emphasizes clean UI design, smooth user experience, secure routing, and scalable frontend architecture.
 
-Currently, two official plugins are available:
+It demonstrates real-world frontend development practices using React, TypeScript, and modern UI tooling.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Overview
 
-## React Compiler
+The application provides authenticated users with access to an interactive dashboard displaying vehicle statistics, projects, teams, tables, and user settings. Public authentication routes are blocked once a user is logged in, ensuring a secure and predictable navigation flow.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Features
 
-## Expanding the ESLint configuration
+Authentication with protected and public routes
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Role-aware navigation for authenticated users
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Interactive dashboard cards and data visualization
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Structured data tables
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+User profile and account management
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Platform settings with persistent state
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Modular and reusable UI components
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Smooth page transitions and micro-interactions
+
+Responsive and scalable layout
+
+Technology Stack
+Frontend
+
+React 18
+
+TypeScript
+
+Vite
+
+Tailwind CSS
+
+React Router v6
+
+Framer Motion
+
+TanStack React Table
+
+Lucide Icons
+
+Backend (Support Layer)
+
+Node.js
+
+Express.js
+
+MongoDB
+
+JWT-based authentication
+
+The backend is API-driven and structured to support scalable frontend development.
+
+Frontend Libraries and Tools
+Purpose	Library
+Routing	React Router
+Animations	Framer Motion
+Data Tables	TanStack React Table
+Icons	Lucide React
+Styling	Tailwind CSS
+Build Tool	Vite
+State Management	React Hooks
+API Communication	Custom Fetch Wrapper
+Key Frontend Concepts Implemented
+
+Protected and public routing patterns
+
+Authentication-based conditional rendering
+
+Component-driven architecture
+
+Reusable UI components and layout primitives
+
+Optimistic UI updates
+
+Loading and error state handling
+
+Smooth transitions and animations
+
+Performance-aware rendering
+
+Type-safe API integration
+
+Project Structure (Frontend)
+src/
+│
+├── components/
+│   ├── auth/           # Route guards
+│   ├── dashboard/      # Dashboard UI components
+│   ├── layout/         # Navbar and footer
+│   └── ui/             # Reusable UI elements
+│
+├── pages/
+│   ├── dashboard/      # Dashboard sub-pages
+│   ├── SignIn.tsx
+│   ├── SignUp.tsx
+│   ├── ProfilePage.tsx
+│   └── TablesPage.tsx
+│
+├── router/
+│   └── AppRouter.tsx
+│
+├── utils/
+│   ├── apiClient.ts
+│   ├── auth.ts
+│   └── useAuth.ts
+│
+└── main.tsx
+
+Authentication Flow
+
+JWT-based authentication
+
+Secure token handling in browser storage
+
+Public routes blocked when authenticated
+
+Protected routes enforced using route guards
+
+Automatic redirection based on auth state
+
+UI and UX Considerations
+
+Consistent spacing and typography
+
+Glassmorphism-inspired design
+
+Smooth hover effects and transitions
+
+Clear visual hierarchy
+
+Accessible and readable layout
+
+Performance Optimizations
+
+Controlled component re-rendering
+
+Optimized table rendering
+
+Prepared for lazy loading and code splitting
+
+Clean separation of logic and presentation
+
+Environment Variables
+
+Environment variables are managed using .env files.
+
+Frontend environment file: .env
+
+Backend environment file: src/server/.env
+
+Sensitive values are excluded from version control. Example files are provided for reference.
+
+Author
+
+Partha Sen
+Frontend / MERN Stack Developer
+
+GitHub: https://github.com/Enigma351
+
+Project Relevance
+
+This project reflects production-level frontend development practices expected from an early-career frontend developer, including secure routing, clean UI composition, maintainable code structure, and performance awareness.
