@@ -26,36 +26,43 @@ export default function SignIn() {
     return <Navigate to="/dashboard" replace />;
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
-    setLoading(true);
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setError('');
+  setLoading(true);
 
-    try {
-      const res = await fetch(`${API_URL}/auth/signin`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
+  try {
+    const res = await fetch(`${API_URL}/api/auth/signin`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include', 
+      body: JSON.stringify({ email, password }),
+    });
 
-      const data = await res.json();
+    const data = await res.json();
 
-      if (!res.ok) {
-        setError(data.message || 'Invalid credentials');
-        return;
-      }
+    if (!res.ok) {
+      setError(data.message || 'Invalid credentials');
+      return;
+    }
 
-      // token
+    
+    if (data.token) {
       const storage = remember ? localStorage : sessionStorage;
       storage.setItem('token', data.token);
-
-      navigate('/dashboard', { replace: true });
-    } catch {
-      setError('Something went wrong. Please try again.');
-    } finally {
-      setLoading(false);
     }
-  };
+
+    navigate('/dashboard', { replace: true });
+  } catch (err) {
+    console.error('Signin error:', err);
+    setError('Something went wrong. Please try again.');
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   
   return (
