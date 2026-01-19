@@ -1,3 +1,4 @@
+console.log("SERVER FILE EXECUTED");
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
