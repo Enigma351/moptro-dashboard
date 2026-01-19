@@ -21,50 +21,62 @@ export default function SignIn() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  /* logcheck */
+  /* Redirect if already logged in */
   if (!authLoading && user) {
     return <Navigate to="/dashboard" replace />;
   }
 
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setError('');
-  setLoading(true);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
 
-  try {
-    const res = await fetch(`${API_URL}/api/auth/signin`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include', 
-      body: JSON.stringify({ email, password }),
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      setError(data.message || 'Invalid credentials');
+    if (!API_URL) {
+      setError('API not configured');
+      setLoading(false);
       return;
     }
 
-    
-    if (data.token) {
-      const storage = remember ? localStorage : sessionStorage;
-      storage.setItem('token', data.token);
+    try {
+      const res = await fetch(`${API_URL}/api/auth/signin`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          email: email.trim(),
+          password: password.trim(),
+        }),
+      });
+
+      let data: any = {};
+      try {
+        data = await res.json();
+      } catch {
+        // backend returned no JSON
+      }
+
+      if (!res.ok) {
+        setError(data.message || 'Invalid credentials');
+        return;
+      }
+
+      // Store token if backend sends one
+      if (data.token) {
+        const storage = remember ? localStorage : sessionStorage;
+        storage.setItem('token', data.token);
+      }
+
+      navigate('/dashboard', { replace: true });
+    } catch (err) {
+      console.error('Signin error:', err);
+      setError('Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
     }
+  };
 
-    navigate('/dashboard', { replace: true });
-  } catch (err) {
-    console.error('Signin error:', err);
-    setError('Something went wrong. Please try again.');
-  } finally {
-    setLoading(false);
-  }
-};
-
-
-  
   return (
     <div className="min-h-screen flex justify-center bg-black text-white">
       <div
@@ -77,7 +89,7 @@ const handleSubmit = async (e: React.FormEvent) => {
         <AuthNavbar />
 
         <div className="flex h-full">
-          
+          {/* Left section */}
           <div
             className="relative"
             style={{
@@ -99,7 +111,7 @@ const handleSubmit = async (e: React.FormEvent) => {
             </div>
           </div>
 
-          
+          {/* Right form */}
           <div className="flex-1 relative">
             <form
               className="w-[350px] absolute left-1/2 -translate-x-1/2 top-[449px]"
@@ -157,7 +169,7 @@ const handleSubmit = async (e: React.FormEvent) => {
               )}
 
               <Button
-                className="w-[350px] h-[45px] mt-[38.46px]"
+                className="w-[350px] h-[45px] mt-[38px]"
                 disabled={loading}
               >
                 {loading ? 'Signing in...' : 'SIGN IN'}
