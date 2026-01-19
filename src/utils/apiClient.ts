@@ -1,24 +1,26 @@
-const API = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 export async function apiFetch(
   path: string,
   options: RequestInit = {}
 ) {
   const token =
-    localStorage.getItem('token') ||
-    sessionStorage.getItem('token');
+    localStorage.getItem("token") ||
+    sessionStorage.getItem("token");
 
-  const res = await fetch(`${API}${path}`, {
+  const res = await fetch(`${API_URL}/api${path}`, {
     ...options,
+    credentials: "include",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: token ? `Bearer ${token}` : '',
+      "Content-Type": "application/json",
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...(options.headers || {}),
     },
   });
 
   if (!res.ok) {
-    const err = await res.json();
-    throw new Error(err.message || 'API Error');
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || "API error");
   }
 
   return res.json();
