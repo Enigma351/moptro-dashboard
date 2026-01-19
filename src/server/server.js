@@ -19,22 +19,21 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 
-const allowedOrigins = [
-  "https://moptro.vercel.app",            
-  "http://localhost:5173"                 
-];
-
 app.use(
   cors({
-    origin: function (origin, callback) {
-      // allow server-to-server / curl / health checks
+    origin: (origin, callback) => {
+      
       if (!origin) return callback(null, true);
 
-      if (allowedOrigins.includes(origin)) {
+      
+      if (
+        origin.endsWith(".vercel.app") ||
+        origin === "http://localhost:5173"
+      ) {
         return callback(null, true);
-      } else {
-        return callback(new Error("Not allowed by CORS"));
       }
+
+      return callback(new Error("Not allowed by CORS"));
     },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -42,11 +41,14 @@ app.use(
   })
 );
 
+
 app.options("*", cors());
+
+
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "public")));
 
-
+/*  Routes */
 app.use("/api/health", healthRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/dashboard", dashboardRoutes);
