@@ -20,7 +20,11 @@ const __dirname = path.dirname(__filename);
 
 app.use(
   cors({
-    origin: "*", 
+    origin: [
+      "https://moptro.vercel.app",     
+      "http://localhost:5173"            
+    ],
+    credentials: true
   })
 );
 
