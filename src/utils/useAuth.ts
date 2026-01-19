@@ -12,11 +12,12 @@ export function useAuth() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    apiFetch('/profile/me')
-      .then(setUser)
-      .catch(() => setUser(null))
-      .finally(() => setLoading(false));
-  }, []);
+  apiFetch("/profile/me")
+    .then(setUser)
+    .catch(() => setUser(null))
+    .finally(() => setLoading(false));
+}, []);
+
 
   return { user, loading };
 }

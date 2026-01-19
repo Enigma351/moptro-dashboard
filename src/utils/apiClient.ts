@@ -1,3 +1,4 @@
+
 const API_URL = import.meta.env.VITE_API_URL;
 
 export async function apiFetch(
@@ -19,8 +20,11 @@ export async function apiFetch(
   });
 
   if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    throw new Error(err.message || "API error");
+    let err: any = {};
+    try {
+      err = await res.json();
+    } catch {}
+    throw new Error(err.message || "API Error");
   }
 
   return res.json();
