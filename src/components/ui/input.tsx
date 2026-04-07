@@ -10,35 +10,9 @@ function Input({
     <input
       type={type}
       className={cn(
-        `
-        w-[350px]
-        h-[50px]
-
-        px-[18px]
-        text-[14px]
-        leading-[19px]
-        text-white
-
-        placeholder:text-white/60
-        placeholder:text-[14px]
-
-        border-2
-        border-white
-        rounded-[20px]
-
-        bg-transparent
-        outline-none
-
-        transition
-        `,
+        "flex h-12 w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-[#0075FF] disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200",
         className
       )}
-      style={{
-        background:
-          'rgba(148,163,184,0.18)',
-        backdropFilter: "blur(42px)",
-        WebkitBackdropFilter: "blur(42px)",
-      }}
       {...props}
     />
   );
