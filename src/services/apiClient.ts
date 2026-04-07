@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL;
+const RAW_API_URL = import.meta.env.VITE_API_URL || '';
+const API_URL = RAW_API_URL.endsWith('/api') ? RAW_API_URL : `${RAW_API_URL}/api`;
 
 /**
  * Enterprise API Fetcher (Cookie-Only)
