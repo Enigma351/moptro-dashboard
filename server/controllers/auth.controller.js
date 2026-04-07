@@ -60,6 +60,8 @@ export const logout = asyncHandler(async (req, res) => {
   res.cookie('jwt', 'loggedout', {
     expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true,
+    secure: true,
+    sameSite: 'None',
   });
 
   sendSuccess(res, 200, null, 'Logged out successfully (Global Revocation Enabled)');

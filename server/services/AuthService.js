@@ -87,8 +87,8 @@ class AuthService {
     return {
       expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 1 day
       httpOnly: true, // Prevent XSS
-      secure: config.NODE_ENV === 'production',
-      sameSite: 'Lax',
+      secure: true, // Mandated for SameSite: None
+      sameSite: 'None', // Mandatory for cross-origin cookies (Vercel -> Render)
     };
   }
 
