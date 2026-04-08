@@ -71,7 +71,7 @@ export default function BillingPage() {
   };
 
   const handleTerminate = async () => {
-    if (!window.confirm("CRITICAL: Terminating this license will revoke all fleet telemetry access. Proceed with deactivation?")) return;
+    if (!window.confirm("PROTOCOL: Revert to previous fleet subscription tier? Current upgrades will be decommissioned.")) return;
     
 
     try {
@@ -150,11 +150,11 @@ export default function BillingPage() {
                   <Typography variant="small" className="text-white/40 block mb-1">{isDeactivated ? "Termination Date" : "Next Payment Due"}</Typography>
                   <Typography variant="h3">{isDeactivated ? "EFFECTIVE IMMEDIATELY" : billing.nextPayment}</Typography>
                 </div>
-                <div className="mt-6 flex flex-col gap-3">
+                <div className="mt-6 flex flex-col gap-4">
                   <Button 
                     onClick={() => setIsPlanModalOpen(true)}
-                    className={`w-full font-bold uppercase tracking-[0.2em] text-[10px] h-12 rounded-xl transition-all active:scale-95 ${
-                      isDeactivated ? "bg-[#0075FF] text-white hover:bg-[#125eff]" : "bg-white text-black hover:bg-neutral-200"
+                    className={`w-full font-black uppercase tracking-[0.2em] text-[10px] h-16 rounded-2xl transition-all active:scale-95 shadow-xl ${
+                      isDeactivated ? "bg-[#0075FF] text-white hover:bg-[#125eff] shadow-[#0075FF]/30" : "bg-white text-black hover:bg-neutral-200 shadow-white/10"
                     }`}
                   >
                     {isDeactivated ? "Reactive Fleet" : "Change Tier"}
@@ -163,7 +163,7 @@ export default function BillingPage() {
                     <Button 
                       onClick={handleTerminate}
                       variant="outline" 
-                      className="w-full border-white/10 text-white hover:bg-red-500/10 hover:text-red-400 hover:border-red-500/30 uppercase tracking-[0.2em] text-[10px] h-12 rounded-xl transition-all opacity-40 hover:opacity-100"
+                      className="w-full border-white/10 text-white hover:bg-red-500/10 hover:text-red-400 hover:border-red-500/30 uppercase tracking-[0.2em] text-[10px] h-16 rounded-2xl transition-all opacity-40 hover:opacity-100"
                     >
                       Terminate License
                     </Button>
@@ -214,7 +214,7 @@ export default function BillingPage() {
            </div>
         </div>
         <CardContent className="p-0">
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto hidden sm:block">
             <table className="w-full text-left border-collapse min-w-[800px]">
               <thead>
                 <tr className="border-b border-white/10 uppercase tracking-[0.2em] text-[9px] text-white/30 bg-white/2">
@@ -256,8 +256,40 @@ export default function BillingPage() {
               </tbody>
             </table>
           </div>
+
+          {/* Mobile Invoice View */}
+          <div className="flex flex-col sm:hidden divide-y divide-white/5">
+            {invoices.map((inv: Invoice) => (
+              <div key={inv._id} className="p-6 space-y-4">
+                <div className="flex justify-between items-start">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
+                      <LayoutGrid size={12} className="text-white/40" />
+                    </div>
+                    <Typography variant="small" className="font-mono text-white/80">{inv.invoiceId}</Typography>
+                  </div>
+                  <span className={`px-2 py-0.5 text-[8px] font-black uppercase tracking-widest rounded-md border ${
+                    inv.status === 'Paid' ? "bg-[#01b574]/10 text-[#01b574] border-[#01b574]/20" : "bg-yellow-500/10 text-yellow-500 border-yellow-500/20"
+                  }`}>
+                    {inv.status}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <Typography variant="small" className="text-white/40 text-[10px] block mb-1">Sync Date</Typography>
+                    <Typography variant="small" className="text-white/80 font-bold">{inv.date}</Typography>
+                  </div>
+                  <div className="text-right">
+                    <Typography variant="small" className="text-white/40 text-[10px] block mb-1">Kinetic Cost</Typography>
+                    <Typography variant="small" className="text-[#0075FF] font-black font-mono">{inv.amount}</Typography>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </CardContent>
       </Card>
+
 
       {/* Modals */}
       <PlanModal 

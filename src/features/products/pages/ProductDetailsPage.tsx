@@ -138,8 +138,8 @@ export default function ProductDetailsPage() {
           >
             <Zap size={64} className="text-white fill-white" />
           </motion.div>
-          <Typography variant="h1" className="text-white mb-4 uppercase text-5xl">Registry Synchronized</Typography>
-          <Typography variant="p" className="text-white/60 max-w-md mx-auto mb-10 uppercase text-[10px] font-black">
+          <Typography variant="h1" className="text-white mb-4 uppercase text-3xl sm:text-5xl">Registry Synchronized</Typography>
+          <Typography variant="p" className="text-white/60 max-w-md mx-auto mb-10 uppercase text-[8px] sm:text-[10px] font-black">
             The {product.name} node has been verified. Serializing configuration for immediate network-wide distribution.
           </Typography>
           <div className="flex items-center gap-2 text-[#0075FF] font-black uppercase tracking-[0.2em] text-[10px]">
@@ -221,24 +221,24 @@ export default function ProductDetailsPage() {
               style={{ filter: color === 'obsidian' ? 'brightness(0.7) grayscale(0.2)' : color === 'pearl' ? 'brightness(1.1) contrast(1.1)' : 'hue-rotate(-15deg) saturate(1.5)' }}
             />
             {/* Holographic Watermark Layer */}
-            <div className="absolute top-12 left-12 z-30 pointer-events-none select-none overflow-hidden opacity-20 flex flex-col gap-2">
-               <Typography variant="h1" className="text-[120px] font-black leading-none text-white blur-[1px]">{product.name}</Typography>
-               <Typography variant="small" className="text-[#0075FF] border-t border-[#0075FF]/30 pt-4">Nodal Inclusion Protocol</Typography>
+            <div className="absolute top-6 left-6 sm:top-12 sm:left-12 z-30 pointer-events-none select-none overflow-hidden opacity-20 flex flex-col gap-2">
+               <Typography variant="h1" className="text-6xl sm:text-[120px] font-black leading-none text-white blur-[1px] tracking-tighter">{product.name}</Typography>
+               <Typography variant="small" className="text-[#0075FF] border-t border-[#0075FF]/30 pt-2 sm:pt-4 text-[7px] sm:text-[9px] uppercase tracking-widest">Nodal Inclusion Protocol</Typography>
             </div>
           </div>
 
           {/* Real-time Specs Display */}
-          <div className="grid grid-cols-4 gap-8 px-8">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 px-4 sm:px-8">
             {[
               { label: 'Propulsion', value: battery === 'long_range' ? 'HP-EX' : 'HP-ST', sub: 'Drive Unit' },
               { label: 'Efficiency', value: battery === 'long_range' ? '450' : '300', sub: 'MI Range' },
               { label: 'Intelligence', value: software === 'neural' ? 'V12' : 'V9.2', sub: 'Logic Suite' },
               { label: 'Investment', value: estimatedPrice.split('.')[0], sub: 'Incl. Upgrades' },
             ].map((spec, i) => (
-              <div key={i} className="flex flex-col gap-2 group cursor-default">
-                <Typography variant="small" className="text-white/20 uppercase tracking-[3px] font-black text-[8px] group-hover:text-[#0075FF] transition-colors">{spec.label}</Typography>
-                <Typography variant="h3" className="text-xl font-black drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">{spec.value}</Typography>
-                <Typography variant="small" className="text-white/10 uppercase tracking-widest text-[7px] font-bold">{spec.sub}</Typography>
+              <div key={i} className="flex flex-col gap-1 sm:gap-2 group cursor-default">
+                <Typography variant="small" className="text-white/20 uppercase tracking-[2px] sm:tracking-[3px] font-black text-[7px] sm:text-[8px] group-hover:text-[#0075FF] transition-colors">{spec.label}</Typography>
+                <Typography variant="h3" className="text-lg sm:text-xl font-black drop-shadow-[0_0_10px_rgba(255,255,255,0.2)] truncate">{spec.value}</Typography>
+                <Typography variant="small" className="text-white/10 uppercase tracking-widest text-[6px] sm:text-[7px] font-bold">{spec.sub}</Typography>
               </div>
             ))}
           </div>
@@ -418,26 +418,26 @@ export default function ProductDetailsPage() {
                         { label: 'Logic Suite', value: autopilot ? 'Neural Autopilot' : 'Standard Logic', price: autopilot ? '+₹6,40,000' : 'Included', highlight: autopilot },
                         { label: 'Software Node', value: software === 'neural' ? 'Premium V12' : 'Basic Hub', price: software === 'neural' ? '+₹3,60,000' : 'Included', highlight: software === 'neural' },
                       ].map((item, id) => (
-                        <div key={id} className="flex justify-between items-center group">
-                           <div className="flex flex-col">
-                              <span className="text-[7px] font-black uppercase tracking-[3px] text-white/20 group-hover:text-white/40 transition-colors">{item.label}</span>
-                              <span className="text-[11px] font-black uppercase tracking-widest text-white/80">{item.value}</span>
+                        <div key={id} className="flex justify-between items-center group gap-4">
+                           <div className="flex flex-col min-w-0 flex-1">
+                              <span className="text-[7px] font-black uppercase tracking-[3px] text-white/20 group-hover:text-white/40 transition-colors truncate">{item.label}</span>
+                              <span className="text-[11px] font-black uppercase tracking-widest text-white/80 truncate">{item.value}</span>
                            </div>
-                           <span className={`text-[9px] font-black uppercase tracking-widest ${item.highlight ? "text-[#01b574]" : "text-white/10"}`}>{item.price}</span>
+                           <span className={`text-[9px] font-black uppercase tracking-widest tabular-nums shrink-0 ${item.highlight ? "text-[#01b574]" : "text-white/10"}`}>{item.price}</span>
                         </div>
                       ))}
-                      <div className="flex justify-between items-center group pt-2 border-t border-white/5">
+                      <div className="flex justify-between items-center group pt-2 border-t border-white/5 gap-4">
                         <span className="text-[7px] font-black uppercase tracking-[3px] text-white/20">Upgrades Applied</span>
-                        <span className="text-[9px] font-black uppercase tracking-widest text-[#01b574]">{new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(addonPrice)}</span>
+                        <span className="text-[9px] font-black uppercase tracking-widest text-[#01b574] tabular-nums shrink-0">{new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(addonPrice)}</span>
                       </div>
                    </div>
                    
-                   <div className="pt-8 border-t border-white/10 flex justify-between items-end">
-                      <div>
+                   <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 text-left sm:text-right">
+                      <div className="min-w-0 w-full sm:w-auto">
                          <Typography variant="small" className="text-white/30 uppercase tracking-[5px] font-black text-[9px] block mb-2">Total Investment</Typography>
-                         <Typography variant="h3" className="text-5xl font-black tracking-tighter text-[#01b574]">{estimatedPrice.split('.')[0]}</Typography>
+                         <Typography variant="h3" className="text-4xl sm:text-5xl font-black tracking-tighter text-[#01b574] leading-none truncate break-all">{estimatedPrice.split('.')[0]}</Typography>
                       </div>
-                      <div className="text-right">
+                      <div className="sm:text-right shrink-0">
                          <Typography variant="small" className="text-white/20 uppercase tracking-[2px] font-black text-[8px] block mb-1">Status Code 201</Typography>
                          <Typography variant="small" className="text-[#0075FF] uppercase tracking-[4px] font-black text-[10px]">Ready for Sourcing</Typography>
                       </div>
@@ -446,25 +446,25 @@ export default function ProductDetailsPage() {
               </motion.div>
             )}
           </AnimatePresence>
-
+ 
           {/* Navigation Controls Matrix */}
-          <div className="mt-auto pt-10 flex gap-8">
+          <div className="mt-auto pt-10 flex flex-col sm:flex-row gap-4 sm:gap-8 min-h-[80px]">
              {step > 1 ? (
-               <Button variant="ghost" onClick={prevStep} disabled={isSyncing} className="h-20 px-12 rounded-[24px] border border-white/10 font-black uppercase tracking-[4px] text-[10px] hover:bg-white/5 disabled:opacity-20">
+               <Button variant="ghost" onClick={prevStep} disabled={isSyncing} className="h-20 sm:h-24 px-12 rounded-[24px] border border-white/10 font-black uppercase tracking-[4px] text-[10px] hover:bg-white/5 disabled:opacity-20 w-full sm:w-auto shadow-xl">
                  Back
                </Button>
              ) : (
-               <Button variant="ghost" onClick={() => navigate('/dashboard')} className="h-20 px-12 rounded-[24px] border border-white/10 font-black uppercase tracking-[4px] text-[10px] hover:bg-white/5 transition-all">
+               <Button variant="ghost" onClick={() => navigate('/dashboard')} className="h-20 sm:h-24 px-12 rounded-[24px] border border-white/10 font-black uppercase tracking-[4px] text-[10px] hover:bg-white/5 transition-all w-full sm:w-auto shadow-xl">
                  Abort
                </Button>
              )}
-
+ 
              {step < totalSteps ? (
-               <Button onClick={nextStep} disabled={isSyncing} className="flex-1 h-20 rounded-[24px] bg-white text-black font-black uppercase tracking-[5px] text-[10px] hover:bg-white/90 shadow-[0_15px_40px_rgba(255,255,255,0.1)] transition-all">
+               <Button onClick={nextStep} disabled={isSyncing} className="flex-1 h-20 sm:h-24 rounded-[24px] bg-white text-black font-black uppercase tracking-[5px] text-[10px] hover:bg-white/90 shadow-[0_20px_40px_rgba(255,255,255,0.1)] transition-all w-full sm:w-auto">
                  {isSyncing ? "Syncing..." : "Commit Step"}
                </Button>
              ) : (
-               <Button onClick={handleOrder} disabled={submitting || isSyncing} className="flex-1 h-20 rounded-[24px] bg-[#0075FF] font-black uppercase tracking-[6px] text-[10px] hover:bg-blue-600 shadow-[0_20px_50px_rgba(0,117,255,0.4)] transition-all">
+               <Button onClick={handleOrder} disabled={submitting || isSyncing} className="flex-1 h-20 sm:h-24 min-h-[80px] rounded-[24px] bg-[#0075FF] font-black uppercase tracking-[6px] text-[12px] hover:bg-blue-600 shadow-[0_25px_50px_rgba(0,117,255,0.4)] transition-all w-full sm:w-auto">
                  {submitting ? 'Authenticating Manifest…' : 'Finalize Inclusion'}
                </Button>
              )}

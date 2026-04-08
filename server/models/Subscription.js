@@ -20,7 +20,9 @@ const subscriptionSchema = new mongoose.Schema({
     cardType: { type: String, default: 'VISA' },
     last4: { type: String, default: '4242' },
     expiry: { type: String, default: '12/26' }
-  }
+  },
+  previousPlanName: { type: String, default: null },
+  previousPrice: { type: String, default: null }
 }, { timestamps: true });
 
 const Subscription = mongoose.model('Subscription', subscriptionSchema);

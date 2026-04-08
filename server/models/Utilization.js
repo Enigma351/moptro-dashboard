@@ -6,6 +6,12 @@ const utilizationSchema = new mongoose.Schema(
     consumption: Number,
     distance: Number,
     lastTrip: String,
+    stats: [
+      {
+        label: String,
+        value: String,
+      }
+    ],
   },
   { timestamps: true }
 );

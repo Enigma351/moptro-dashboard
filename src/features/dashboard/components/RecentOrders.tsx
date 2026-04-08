@@ -18,15 +18,18 @@ type Order = {
 };
 
 export default function RecentOrders() {
-  const [orders, setOrders] = useState<Order[]>([]);
+  const [data, setData] = useState<{ orders: Order[], isRevoked: boolean } | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     apiFetch('/dashboard/orders')
-      .then(setOrders)
+      .then(setData)
       .catch(err => console.error('Failed to fetch orders:', err))
       .finally(() => setLoading(false));
   }, []);
+
+  const orders = data?.orders || [];
+  const isRevoked = data?.isRevoked || false;
 
   if (loading) {
     return (
@@ -73,7 +76,7 @@ export default function RecentOrders() {
         </div>
       </div>
       
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto hidden sm:block">
         <table className="w-full text-left border-collapse min-w-[800px]">
           <thead>
             <tr className="bg-white/5 uppercase tracking-widest text-[10px] text-white/40 border-b border-white/10">
@@ -85,7 +88,7 @@ export default function RecentOrders() {
           </thead>
           <tbody>
             {orders.map((order) => (
-              <tr key={order._id} className="border-b border-white/5 hover:bg-white/5 transition-colors group/row">
+              <tr key={order._id} className={cn("border-b border-white/5 hover:bg-white/5 transition-colors group/row", isRevoked && "blur-[2px] opacity-20 pointer-events-none")}>
                 <td className="px-8 py-5">
                   <div className="flex items-center gap-3">
                     <div className="w-2 h-2 rounded-full bg-[#0075FF] animate-pulse" />
@@ -110,16 +113,6 @@ export default function RecentOrders() {
                         <Zap size={8} /> Neural
                       </span>
                     )}
-                    {order.wheels && order.wheels !== 'standard' && (
-                      <span className="px-2 py-0.5 rounded bg-white/5 text-white/40 text-[9px] font-black uppercase tracking-wider border border-white/10">
-                        {order.wheels} Rims
-                      </span>
-                    )}
-                    {order.softwarePackage && order.softwarePackage !== 'basic' && (
-                      <span className="px-2 py-0.5 rounded bg-[#0075FF]/10 text-[#0075FF] text-[9px] font-black uppercase tracking-wider border border-[#0075FF]/20">
-                        {order.softwarePackage} OS
-                      </span>
-                    )}
                   </div>
                 </td>
                 <td className="px-8 py-5">
@@ -127,7 +120,7 @@ export default function RecentOrders() {
                 </td>
                 <td className="px-8 py-5 text-right">
                   <Typography variant="p" className="text-[10px] text-white/30 lowercase">
-                    {new Date(order.createdAt).toLocaleDateString()} at {new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    {new Date(order.createdAt).toLocaleDateString()}
                   </Typography>
                 </td>
               </tr>
@@ -135,6 +128,45 @@ export default function RecentOrders() {
           </tbody>
         </table>
       </div>
+
+      {/* Mobile Card View */}
+      <div className={cn("flex flex-col sm:hidden divide-y divide-white/5", isRevoked && "blur-[2px] opacity-20 pointer-events-none")}>
+        {orders.map((order) => (
+          <div key={order._id} className="p-6 space-y-4">
+            <div className="flex justify-between items-start">
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-2 rounded-full bg-[#0075FF]" />
+                <Typography variant="small" className="font-bold text-white tracking-widest uppercase">{order.productName}</Typography>
+              </div>
+              <Typography variant="small" className="font-mono text-[#0075FF] font-black">{order.price}</Typography>
+            </div>
+            
+            <div className="flex flex-wrap gap-2">
+              <span className={cn(
+                "px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider border",
+                order.color === 'obsidian' ? "bg-black text-white border-white/20" : 
+                order.color === 'pearl' ? "bg-slate-200 text-black border-white/20" :
+                "bg-[#1e3a8a] text-white border-white/20"
+              )}>
+                {order.color}
+              </span>
+              <span className="px-2 py-0.5 rounded bg-white/5 text-white/60 text-[9px] font-black uppercase tracking-wider border border-white/10">
+                {order.battery.replace('_', ' ')}
+              </span>
+              {order.autopilot && (
+                <span className="px-2 py-0.5 rounded bg-[#01b574]/10 text-[#01b574] text-[9px] font-black uppercase tracking-wider border border-[#01b574]/20 flex items-center gap-1">
+                  <Zap size={8} /> Neural
+                </span>
+              )}
+            </div>
+            
+            <Typography variant="p" className="text-[10px] text-white/20 uppercase tracking-widest">
+              Sync: {new Date(order.createdAt).toLocaleDateString()} at {new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+            </Typography>
+          </div>
+        ))}
+      </div>
+
     </motion.div>
   );
 }

@@ -13,13 +13,21 @@ class DashboardService {
   async getOverview() {
     const data = await DashboardOverview.findOne().sort({ createdAt: -1 });
     if (!data) throw new AppError('Overview data not found', 404);
-    return data;
+
+    const sub = await Subscription.findOne();
+    const isRevoked = sub?.planName === 'DEACTIVATED';
+
+    return { ...data.toObject(), isRevoked };
   }
 
   async getUtilization() {
     const data = await Utilization.findOne().sort({ createdAt: -1 });
     if (!data) throw new AppError('Utilization data not found', 404);
-    return data;
+
+    const sub = await Subscription.findOne();
+    const isRevoked = sub?.planName === 'DEACTIVATED';
+
+    return { ...data.toObject(), isRevoked };
   }
 
   async getProducts() {
@@ -87,11 +95,15 @@ class DashboardService {
   }
 
   async getRecentOrders() {
-    const data = await Order.find()
+    const orders = await Order.find()
       .populate('productId')
       .sort({ createdAt: -1 })
       .limit(5);
-    return data;
+
+    const sub = await Subscription.findOne();
+    const isRevoked = sub?.planName === 'DEACTIVATED';
+
+    return { orders, isRevoked };
   }
 
   async getBillingInfo() {
@@ -133,6 +145,10 @@ class DashboardService {
     let sub = await Subscription.findOne();
     if (!sub) {
       sub = new Subscription();
+    } else if (sub.planName !== 'DEACTIVATED') {
+      // Store current plan as previous before updating
+      sub.previousPlanName = sub.planName;
+      sub.previousPrice = sub.price;
     }
 
     sub.planName = selectedPlan.name;
@@ -145,17 +161,26 @@ class DashboardService {
     let sub = await Subscription.findOne();
     if (!sub) throw new AppError('No active fleet subscription found', 404);
 
-    sub.planName = 'DEACTIVATED';
-    sub.price = '₹0';
+    const isRestoring = !!sub.previousPlanName;
+    const restoredPlan = sub.previousPlanName || 'Basic Enterprise Fleet';
+    const restoredPrice = sub.previousPrice || '₹12,000';
+
+    sub.planName = restoredPlan;
+    sub.price = restoredPrice;
+    
+    // Clear previous plan after restoration
+    sub.previousPlanName = null;
+    sub.previousPrice = null;
+    
     await sub.save();
 
-    // Log the termination in invoice history
+    // Log the event in invoice history
     await Invoice.create({
-      invoiceId: 'TERM-' + Date.now().toString().slice(-6),
-      date: new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: '2024' }),
-      amount: '₹0.00',
+      invoiceId: 'REST-' + Date.now().toString().slice(-6),
+      date: new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }),
+      amount: restoredPrice,
       status: 'Paid',
-      planName: 'Termination'
+      planName: isRestoring ? 'Plan Restored' : 'Tier Downgrade'
     });
 
     return sub;

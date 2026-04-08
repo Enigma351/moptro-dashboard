@@ -95,18 +95,18 @@ export default function ProfilePage() {
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-4 justify-center sm:justify-start">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center sm:justify-start w-full sm:w-auto">
               <Button
                 variant="outline"
                 onClick={() => setEditMode(!editMode)}
-                className="h-14 px-8 border border-white/10 rounded-2xl text-[12px] font-black uppercase tracking-[2px] hover:bg-white/5"
+                className="h-20 px-8 border border-white/10 rounded-2xl text-[12px] font-black uppercase tracking-[2px] hover:bg-white/5 w-full sm:w-auto"
               >
                 {editMode ? 'CANCEL' : 'EDIT IDENTITY'}
               </Button>
 
               <Button
                 onClick={logout}
-                className="h-14 px-8 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 text-red-500 rounded-2xl text-[12px] font-black uppercase tracking-[2px] transition-all"
+                className="h-20 px-8 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 text-red-500 rounded-2xl text-[12px] font-black uppercase tracking-[2px] transition-all w-full sm:w-auto"
               >
                 TERMINATE SESSION
               </Button>
@@ -138,30 +138,30 @@ export default function ProfilePage() {
 
               {editMode && (
                 <motion.div 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="mt-12 flex gap-4"
-                >
-                  <Button 
-                    disabled={updating}
-                    onClick={handleUpdate}
-                    className="h-14 px-10 bg-[#0075FF] hover:bg-blue-600 font-black text-[12px] tracking-[2px] rounded-2xl shadow-[0_10px_20px_rgba(0,117,255,0.3)] disabled:opacity-50"
-                  >
-                    {updating ? <Loader2 className="mr-2 animate-spin" size={16} /> : null}
-                    {updating ? 'SYCHRONIZING...' : 'COMMIT CHANGES'}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="h-14 px-10 border border-white/10 rounded-2xl font-black text-[12px] tracking-[2px]"
-                    onClick={() => {
-                      setName(user.name);
-                      setEmail(user.email);
-                      setEditMode(false);
-                    }}
-                  >
-                    RESET
-                  </Button>
-                </motion.div>
+                   initial={{ opacity: 0, y: 10 }}
+                   animate={{ opacity: 1, y: 0 }}
+                   className="mt-12 flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
+                 >
+                   <Button 
+                     disabled={updating}
+                     onClick={handleUpdate}
+                     className="h-20 px-10 bg-[#0075FF] hover:bg-blue-600 font-black text-[14px] tracking-[3px] rounded-2xl shadow-[0_20px_40px_rgba(0,117,255,0.3)] disabled:opacity-50 w-full sm:w-auto"
+                   >
+                     {updating ? <Loader2 className="mr-2 animate-spin" size={16} /> : null}
+                     {updating ? 'SYCHRONIZING...' : 'COMMIT CHANGES'}
+                   </Button>
+                   <Button
+                     variant="outline"
+                     className="h-20 px-10 border border-white/10 rounded-2xl font-black text-[14px] tracking-[3px] w-full sm:w-auto hover:bg-white/5 transition-all"
+                     onClick={() => {
+                       setName(user.name);
+                       setEmail(user.email);
+                       setEditMode(false);
+                     }}
+                   >
+                     RESET
+                   </Button>
+                 </motion.div>
               )}
             </CardContent>
           </Card>

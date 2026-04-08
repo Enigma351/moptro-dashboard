@@ -277,50 +277,54 @@ export default function SettingsPage() {
               initial={{ scale: 0.9, y: 20, opacity: 0 }}
               animate={{ scale: 1, y: 0, opacity: 1 }}
               exit={{ scale: 0.9, y: 20, opacity: 0 }}
-              className="relative w-full max-w-md bg-[#050B2E] border border-white/10 rounded-[32px] shadow-3xl overflow-hidden p-10 text-center"
+              className="relative w-full max-w-md max-h-[90vh] bg-[#050B2E] border border-white/10 rounded-[32px] shadow-3xl overflow-hidden flex flex-col"
             >
               <button 
                 onClick={() => setIs2FAModalOpen(false)}
-                className="absolute top-6 right-6 p-2 hover:bg-white/5 rounded-full transition-colors"
+                className="absolute top-6 right-6 p-2 hover:bg-white/5 rounded-full transition-colors z-20 bg-black/20 backdrop-blur-md"
               >
                 <X size={20} className="text-white/40" />
               </button>
 
-              <div className="w-16 h-16 bg-[#0075FF]/10 rounded-2xl border border-[#0075FF]/20 flex items-center justify-center mx-auto mb-6">
-                <QrCode size={32} className="text-[#0075FF]" />
-              </div>
-              
-              <Typography variant="h3" className="uppercase tracking-tighter mb-4">Initialize 2FA Protocol</Typography>
-              <Typography variant="p" className="text-white/40 text-xs mb-8 uppercase tracking-widest font-black leading-relaxed">
-                Scan the QR code with your authenticator node to synchronize encryption keys.
-              </Typography>
+              <div className="overflow-y-auto flex-1 scrollbar-hide">
+                <div className="p-8 sm:p-10 text-center">
+                  <div className="w-16 h-16 bg-[#0075FF]/10 rounded-2xl border border-[#0075FF]/20 flex items-center justify-center mx-auto mb-6">
+                    <QrCode size={32} className="text-[#0075FF]" />
+                  </div>
+                  
+                  <Typography variant="h3" className="uppercase tracking-tighter mb-4">Initialize 2FA Protocol</Typography>
+                  <Typography variant="p" className="text-white/40 text-[10px] mb-8 uppercase tracking-widest font-black leading-relaxed">
+                    Scan the QR code with your authenticator node to synchronize encryption keys.
+                  </Typography>
 
-              <div className="bg-white p-6 rounded-3xl w-48 h-48 mx-auto mb-8 relative group">
-                <div className="absolute inset-0 bg-[#0075FF] opacity-0 group-hover:opacity-10 transition-opacity rounded-3xl" />
-                <img 
-                  src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=MOPTRO_SECURE_NODE" 
-                  alt="2FA QR Code"
-                  className="w-full h-full grayscale hover:grayscale-0 transition-all duration-500"
-                />
-              </div>
+                  <div className="bg-white p-6 rounded-3xl w-40 h-40 sm:w-48 sm:h-48 mx-auto mb-8 relative group">
+                    <div className="absolute inset-0 bg-[#0075FF] opacity-0 group-hover:opacity-10 transition-opacity rounded-3xl" />
+                    <img 
+                      src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=MOPTRO_SECURE_NODE" 
+                      alt="2FA QR Code"
+                      className="w-full h-full grayscale hover:grayscale-0 transition-all duration-500"
+                    />
+                  </div>
 
-              <div className="space-y-4">
-                <Input 
-                  placeholder="000 000" 
-                  className="text-center text-2xl font-mono tracking-[10px] h-16 bg-white/5 border-white/10 rounded-2xl"
-                  maxLength={6}
-                />
-                <Button 
-                  onClick={async () => {
-                    setTwoFactorEnabled(true);
-                    setIs2FAModalOpen(false);
-                    await apiFetch('/auth/2fa', { method: 'PUT', body: JSON.stringify({ enabled: true }) });
-                  }}
-                  className="w-full h-14 bg-[#0075FF] text-white hover:bg-[#125eff] rounded-2xl font-black uppercase tracking-widest text-xs relative overflow-hidden group shadow-[0_15px_30px_rgba(0,117,255,0.2)]"
-                >
-                  Verify & Synchronize
-                  <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
-                </Button>
+                  <div className="space-y-4">
+                    <Input 
+                      placeholder="000 000" 
+                      className="text-center text-xl sm:text-2xl font-mono tracking-[8px] sm:tracking-[10px] h-14 sm:h-16 bg-white/5 border-white/10 rounded-2xl"
+                      maxLength={6}
+                    />
+                    <Button 
+                      onClick={async () => {
+                        setTwoFactorEnabled(true);
+                        setIs2FAModalOpen(false);
+                        await apiFetch('/auth/2fa', { method: 'PUT', body: JSON.stringify({ enabled: true }) });
+                      }}
+                      className="w-full h-14 bg-[#0075FF] text-white hover:bg-[#125eff] rounded-2xl font-black uppercase tracking-widest text-xs relative overflow-hidden group shadow-[0_15px_30px_rgba(0,117,255,0.2)]"
+                    >
+                      Verify & Synchronize
+                      <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
+                    </Button>
+                  </div>
+                </div>
               </div>
             </motion.div>
           </div>
