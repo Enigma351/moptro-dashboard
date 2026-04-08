@@ -120,32 +120,32 @@ export default function BillingPage() {
         {/* Active Plan Card */}
         <Card variant="glass" className={`lg:col-span-2 relative overflow-hidden group transition-all duration-700 ${isDeactivated ? "filter grayscale opacity-80" : ""}`}>
           <div className={`absolute top-0 right-0 w-64 h-64 blur-[80px] pointer-events-none transition-all duration-700 ${isDeactivated ? "bg-red-500/10 group-hover:bg-red-500/20" : "bg-[#0075FF]/10 group-hover:bg-[#0075FF]/20"}`} />
-          <CardContent className="p-8 relative z-10">
-            <div className="flex flex-col sm:flex-row justify-between gap-6">
-              <div>
+          <CardContent className="p-6 sm:p-8 relative z-10">
+            <div className="flex flex-col sm:flex-row justify-between gap-6 sm:gap-12">
+              <div className="flex-1">
                 <motion.span 
                   key={billing.planName}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  className={`px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] rounded-full border inline-block ${
+                  className={`px-3 py-1 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] rounded-full border inline-block ${
                     isDeactivated ? "bg-red-500/20 text-red-500 border-red-500/30" : "bg-[#0075FF]/20 text-[#0075FF] border-[#0075FF]/30"
                   }`}
                 >
                   {isDeactivated ? "License Revoked" : "Active Plan"}
                 </motion.span>
-                <Typography variant="h2" className="mt-4 mb-2">{isDeactivated ? "No Active Subscription" : billing.planName}</Typography>
-                <Typography variant="p" className="text-white/60 text-sm max-w-sm">
+                <Typography variant="h2" className="mt-4 mb-2 text-2xl sm:text-3xl">{isDeactivated ? "No Active Subscription" : billing.planName}</Typography>
+                <Typography variant="p" className="text-white/60 text-xs sm:text-sm max-w-sm">
                   {isDeactivated 
                     ? "Your fleet license has been terminated. All neural navigation and telemetry nodes have been disconnected." 
                     : "Full infrastructure access for large-scale electric fleets, providing high-fidelity telemetrics and synchronized charging management."}
                 </Typography>
-                <div className="mt-8 flex items-baseline gap-2">
-                  <Typography variant="h1" className="text-white uppercase">{billing.price}</Typography>
+                <div className="mt-6 sm:mt-8 flex items-baseline gap-2">
+                  <Typography variant="h1" className="text-white uppercase text-4xl sm:text-6xl">{billing.price}</Typography>
                   <Typography variant="small" className="text-white/40">{isDeactivated ? "" : "/ MONTH"}</Typography>
                 </div>
               </div>
               
-              <div className="flex flex-col justify-between sm:text-right border-t sm:border-t-0 sm:border-l border-white/10 pt-6 sm:pt-0 sm:pl-6 min-w-[200px]">
+              <div className="flex flex-col justify-between sm:text-right border-t sm:border-t-0 sm:border-l border-white/10 pt-6 sm:pt-0 sm:pl-10 min-w-0 sm:min-w-[240px]">
                 <div>
                   <Typography variant="small" className="text-white/40 block mb-1">{isDeactivated ? "Termination Date" : "Next Payment Due"}</Typography>
                   <Typography variant="h3">{isDeactivated ? "EFFECTIVE IMMEDIATELY" : billing.nextPayment}</Typography>

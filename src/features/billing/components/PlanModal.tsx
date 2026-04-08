@@ -57,17 +57,17 @@ export default function PlanModal({ isOpen, onClose, onSelect, currentPlan }: Pl
             exit={{ scale: 0.9, y: 20, opacity: 0 }}
             className="relative w-full max-w-5xl max-h-[90vh] bg-[#050B2E] border border-white/10 rounded-[40px] shadow-3xl overflow-hidden flex flex-col"
           >
-            <div className="absolute top-0 right-0 p-4 sm:p-8 z-20">
-              <Button variant="ghost" size="icon" onClick={onClose} className="rounded-full hover:bg-white/5 bg-black/20 backdrop-blur-md">
-                <X size={20} className="sm:w-6 sm:h-6" />
+            <div className="absolute top-0 right-0 p-3 sm:p-8 z-20">
+              <Button variant="ghost" size="icon" onClick={onClose} className="rounded-full hover:bg-white/5 bg-black/20 backdrop-blur-md w-10 h-10 sm:w-14 sm:h-14">
+                <X size={18} className="sm:w-6 sm:h-6" />
               </Button>
             </div>
 
             <div className="overflow-y-auto flex-1 scrollbar-hide">
               <div className="p-6 sm:p-10 lg:p-12">
-                <div className="text-center mb-10 sm:mb-12">
-                  <Typography variant="h2" className="text-3xl sm:text-4xl uppercase tracking-tighter mb-4">Select Fleet Tier</Typography>
-                  <Typography variant="p" className="text-white/40 max-w-xl mx-auto uppercase tracking-widest text-[9px] sm:text-[10px] font-black">
+                <div className="text-center mb-8 sm:mb-12">
+                  <Typography variant="h2" className="text-2xl sm:text-4xl uppercase tracking-tighter mb-4">Select Fleet Tier</Typography>
+                  <Typography variant="p" className="text-white/40 max-w-sm sm:max-w-xl mx-auto uppercase tracking-widest text-[8px] sm:text-[10px] font-black leading-relaxed">
                     Calibrate your operational capacity. High-fidelity fleet management requires synchronized tier allocation.
                   </Typography>
                 </div>
@@ -77,22 +77,22 @@ export default function PlanModal({ isOpen, onClose, onSelect, currentPlan }: Pl
                     <Card 
                       key={plan.id}
                       variant="glass" 
-                      className={`relative p-6 sm:p-8 flex flex-col border-2 transition-all duration-500 sm:hover:scale-[1.02] ${
+                      className={`relative p-5 sm:p-8 flex flex-col border-2 transition-all duration-500 sm:hover:scale-[1.02] ${
                         currentPlan.includes(plan.name) ? "border-[#0075FF] bg-[#0075FF]/5" : "border-white/5 sm:hover:border-white/20"
                       }`}
                     >
-                      <div className="flex justify-between items-start mb-6">
-                        <div className="p-3 rounded-2xl bg-white/5 border border-white/10">
-                          <plan.icon size={24} style={{ color: plan.color }} />
+                      <div className="flex justify-between items-start mb-4 sm:mb-6">
+                        <div className="p-2 sm:p-3 rounded-2xl bg-white/5 border border-white/10">
+                          <plan.icon size={20} className="sm:w-6 sm:h-6" style={{ color: plan.color }} />
                         </div>
                         {currentPlan.includes(plan.name) && (
-                          <span className="text-[9px] font-black uppercase tracking-widest text-[#0075FF] bg-[#0075FF]/10 px-3 py-1 rounded-full border border-[#0075FF]/20">Active</span>
+                          <span className="text-[8px] sm:text-[9px] font-black uppercase tracking-widest text-[#0075FF] bg-[#0075FF]/10 px-3 py-1 rounded-full border border-[#0075FF]/20">Active</span>
                         )}
                       </div>
 
-                      <Typography variant="h4" className="mb-2 uppercase text-lg">{plan.name}</Typography>
-                      <div className="flex items-baseline gap-1 mb-8">
-                        <Typography variant="h2" className="text-3xl">{plan.price}</Typography>
+                      <Typography variant="h4" className="mb-2 uppercase text-base sm:text-lg">{plan.name}</Typography>
+                      <div className="flex items-baseline gap-1 mb-6 sm:mb-8">
+                        <Typography variant="h2" className="text-2xl sm:text-3xl">{plan.price}</Typography>
                         <Typography variant="small" className="text-white/20">/ MONTH</Typography>
                       </div>
 

@@ -252,30 +252,30 @@ export default function ProductDetailsPage() {
             {step === 1 && (
               <motion.div key="st1" initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.02 }} className="space-y-10">
                 <div>
-                  <Typography variant="h2" className="text-4xl font-black tracking-tighter mb-3">Propulsion Terminal</Typography>
-                  <Typography variant="p" className="text-white/40 leading-relaxed text-sm max-w-sm uppercase tracking-widest font-bold text-[10px]">Define the core energy density and kinetic potential of your unit.</Typography>
+                  <Typography variant="h2" className="text-3xl sm:text-4xl font-black tracking-tighter mb-3">Propulsion Terminal</Typography>
+                  <Typography variant="p" className="text-white/40 leading-relaxed text-xs sm:text-sm max-w-sm uppercase tracking-widest font-bold text-[9px] sm:text-[10px]">Define the core energy density and kinetic potential of your unit.</Typography>
                 </div>
                 
                 <div className="space-y-4">
-                   <div onClick={() => setBattery('standard')} className={`p-8 rounded-[32px] border-2 transition-all cursor-pointer flex justify-between items-center ${battery === 'standard' ? "border-[#0075FF] bg-gradient-to-br from-[#0075FF]/10 to-transparent shadow-[0_20px_40px_rgba(0,117,255,0.15)]" : "border-white/5 bg-white/2"}`}>
+                   <div onClick={() => setBattery('standard')} className={`p-6 sm:p-8 rounded-[28px] sm:rounded-[32px] border-2 transition-all cursor-pointer flex justify-between items-center ${battery === 'standard' ? "border-[#0075FF] bg-gradient-to-br from-[#0075FF]/10 to-transparent shadow-[0_20px_40px_rgba(0,117,255,0.15)]" : "border-white/5 bg-white/2"}`}>
                      <div>
-                       <Typography variant="h4" className="text-xl mb-1 font-black">Standard Core</Typography>
-                       <Typography variant="small" className="text-white/30 uppercase tracking-[2px] text-[8px] font-black">300 MI · Optimized Urban Deployment</Typography>
+                       <Typography variant="h4" className="text-lg sm:text-xl mb-1 font-black">Standard Core</Typography>
+                       <Typography variant="small" className="text-white/30 uppercase tracking-[2px] text-[7px] sm:text-[8px] font-black">300 MI · Optimized Urban Deployment</Typography>
                      </div>
-                     <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${battery === 'standard' ? "border-[#0075FF]" : "border-white/20"}`}>
-                        {battery === 'standard' && <div className="w-3 h-3 rounded-full bg-[#0075FF]" />}
+                     <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 flex items-center justify-center ${battery === 'standard' ? "border-[#0075FF]" : "border-white/20"}`}>
+                        {battery === 'standard' && <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#0075FF]" />}
                      </div>
                    </div>
 
-                    <div onClick={() => setBattery('long_range')} className={`p-8 rounded-[32px] border-2 transition-all cursor-pointer flex justify-between items-center ${battery === 'long_range' ? "border-[#0075FF] bg-gradient-to-br from-[#0075FF]/10 to-transparent shadow-[0_20px_40px_rgba(0,117,255,0.15)]" : "border-white/5 bg-white/2"}`}>
+                    <div onClick={() => setBattery('long_range')} className={`p-6 sm:p-8 rounded-[28px] sm:rounded-[32px] border-2 transition-all cursor-pointer flex justify-between items-center ${battery === 'long_range' ? "border-[#0075FF] bg-gradient-to-br from-[#0075FF]/10 to-transparent shadow-[0_20px_40px_rgba(0,117,255,0.15)]" : "border-white/5 bg-white/2"}`}>
                      <div>
-                       <Typography variant="h4" className="text-xl mb-1 font-black text-[#01b574]">Ex-Range Hub</Typography>
-                       <Typography variant="small" className="text-[#01b574] uppercase tracking-[2px] text-[8px] font-black">450 MI · Inter-City Nodal Transit</Typography>
+                       <Typography variant="h4" className="text-lg sm:text-xl mb-1 font-black text-[#01b574]">Ex-Range Hub</Typography>
+                       <Typography variant="small" className="text-[#01b574] uppercase tracking-[2px] text-[7px] sm:text-[8px] font-black">450 MI · Inter-City Nodal Transit</Typography>
                      </div>
                      <div className="text-right">
-                        <Typography variant="small" className="text-[#01b574] font-black block mb-2 tracking-widest">+ ₹4,00,000</Typography>
-                        <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ml-auto ${battery === 'long_range' ? "border-[#0075FF]" : "border-white/20"}`}>
-                           {battery === 'long_range' && <div className="w-3 h-3 rounded-full bg-[#0075FF]" />}
+                        <Typography variant="small" className="text-[#01b574] font-black block mb-2 tracking-widest text-[9px] sm:text-[10px]">+ ₹4,00,000</Typography>
+                        <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 flex items-center justify-center ml-auto ${battery === 'long_range' ? "border-[#0075FF]" : "border-white/20"}`}>
+                           {battery === 'long_range' && <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#0075FF]" />}
                         </div>
                      </div>
                    </div>
