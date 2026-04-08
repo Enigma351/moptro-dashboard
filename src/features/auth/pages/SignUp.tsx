@@ -81,33 +81,63 @@ export default function SignUp() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#020515] text-white">
-      <div className="relative flex-1 flex flex-col overflow-x-hidden overflow-y-auto bg-gradient-main">
+    <div className="min-h-screen flex flex-col bg-[#020515] text-white relative overflow-hidden">
+      {/* Animated Aurora Blobs */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.2, 1],
+            x: [0, 100, 0],
+            y: [0, 50, 0],
+            opacity: [0.15, 0.3, 0.15] 
+          }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+          className="absolute -top-[10%] -left-[10%] w-[60%] h-[60%] rounded-full bg-[#1e3a8a]/20 blur-[120px]"
+        />
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.3, 1],
+            x: [0, -80, 0],
+            y: [0, -40, 0],
+            opacity: [0.1, 0.2, 0.1] 
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "linear", delay: 2 }}
+          className="absolute -bottom-[10%] -right-[10%] w-[50%] h-[50%] rounded-full bg-[#0075FF]/10 blur-[100px]"
+        />
+      </div>
+
+      <div className="relative flex-1 flex flex-col overflow-x-hidden overflow-y-auto bg-gradient-main z-10">
         <AuthNavbar />
 
-        <div className="flex flex-col lg:flex-row flex-1 pt-24 sm:pt-32 pb-10 px-4 sm:px-10 max-w-[1600px] mx-auto w-full gap-10 items-center">
+        <div className="flex flex-col lg:flex-row flex-1 pt-12 sm:pt-32 pb-10 px-4 sm:px-10 max-w-[1600px] mx-auto w-full gap-10 items-center">
           {/* LEFT SIDE - Info (visible on large screens) */}
-          <div className="hidden lg:flex flex-1 relative rounded-[40px] overflow-hidden min-h-[600px] shadow-2xl border border-white/10 group">
-             <div 
-               className="absolute inset-0 bg-no-repeat bg-cover bg-center transition-transform duration-1000 group-hover:scale-105"
-               style={{ backgroundImage: `url(${leftImage})` }}
-             />
-             <div className="absolute inset-0 bg-gradient-to-t from-[#020515] via-transparent to-transparent opacity-90" />
-             
-             <div className="relative mt-auto z-10 p-16 w-full text-left">
-               <Typography variant="small" className="text-[#0075FF] mb-4">Join the Revolution</Typography>
-               <Typography variant="h1" className="text-white drop-shadow-2xl">
-                 Experience <br/> <span className="text-white/40">Pure Intelligence</span>
-               </Typography>
-             </div>
-          </div>
+           <div className="hidden lg:flex flex-1 relative rounded-[40px] overflow-hidden min-h-[600px] shadow-3xl border border-white/10 group">
+              <div 
+                className="absolute inset-0 bg-no-repeat bg-cover bg-center transition-transform duration-1000 group-hover:scale-105"
+                style={{ backgroundImage: `url(${leftImage})` }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#020515] via-transparent to-transparent opacity-90" />
+              
+              <div className="relative mt-auto z-10 p-16 w-full text-left">
+                <motion.div
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  <Typography variant="small" className="text-[#0075FF] mb-4 font-black tracking-[4px]">JOIN THE REVOLUTION</Typography>
+                  <Typography variant="h1" className="text-white drop-shadow-2xl text-6xl leading-tight">
+                    Experience <br/> <span className="text-white/40">Pure Intelligence</span>
+                  </Typography>
+                </motion.div>
+              </div>
+           </div>
 
           {/* RIGHT SIDE - Form */}
           <div className="flex-1 flex flex-col items-center justify-center w-full max-w-lg lg:max-w-md animate-in fade-in slide-in-from-bottom-5 duration-700">
-            <Card variant="glass" className="w-full p-8 sm:p-12">
-              <Typography variant="h2" className="mb-4">Create Account</Typography>
-              <Typography variant="p" className="mb-10 text-white/50 text-sm">
-                Be part of our exclusive community. Sign up to get started with MOPTrO.
+            <Card variant="glass" className="w-full p-8 sm:p-12 border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] bg-black/40 backdrop-blur-3xl">
+              <Typography variant="h2" className="mb-4 text-3xl sm:text-4xl">Create Account</Typography>
+              <Typography variant="p" className="mb-10 text-white/50 text-xs sm:text-sm leading-relaxed">
+                Be part of our exclusive enterprise network. Initialize your profile to begin fleet synchronization with MOPTrO.
               </Typography>
 
               <form onSubmit={handleSubmit} className="space-y-6">

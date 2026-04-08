@@ -11,7 +11,7 @@ export default function AuthNavbar() {
       className="
         fixed top-[24px] left-1/2 -translate-x-1/2 z-50
         w-[95%] max-w-[800px] min-h-[50px] sm:h-[64px]
-        flex flex-wrap items-center justify-between px-6 sm:px-10
+        hidden lg:flex items-center justify-between px-6 sm:px-10
         rounded-[20px] border border-white/20 text-[10px] sm:text-[12px] font-bold text-white
         bg-white/5 backdrop-blur-[20px] shadow-[0_4px_30px_rgba(0,0,0,0.1)]
       "

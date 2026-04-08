@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { apiFetch } from '@/services/apiClient';
 import { Typography } from '@/components/ui/typography';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Settings2, Zap } from 'lucide-react';
+import { ArrowLeft, Settings2, Zap, Check } from 'lucide-react';
 
 type Product = {
   _id: string;
@@ -172,7 +172,7 @@ export default function ProductDetailsPage() {
                   {isSyncing && step === s && (
                     <motion.div initial={{ y: "100%" }} animate={{ y: "-100%" }} transition={{ repeat: Infinity, duration: 1 }} className="absolute inset-0 bg-white/20" />
                   )}
-                  {step > s ? "✓" : s}
+                  {step > s ? <Check size={12} strokeWidth={4} /> : s}
                 </div>
                 <div className="flex flex-col hidden xl:flex">
                   <span className={`text-[9px] font-black uppercase tracking-[3px] transition-colors duration-500 ${step === s ? "text-white" : "text-white/20"}`}>
