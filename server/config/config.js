@@ -13,7 +13,7 @@ const requiredEnvVars = ['MONGO_URI', 'JWT_SECRET'];
 // Validate mandatory env vars for production-readiness
 requiredEnvVars.forEach((varName) => {
   if (!process.env[varName]) {
-    console.error(`❌ CRITICAL ERROR: Missing mandatory environment variable: ${varName}`);
+    console.error(` CRITICAL ERROR: Missing mandatory environment variable: ${varName}`);
     process.exit(1);
   }
 });
