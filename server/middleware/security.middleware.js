@@ -3,7 +3,7 @@ import RevokedToken from '../models/RevokedToken.js';
 import { config } from '../config/config.js';
 
 /**
- * 🛰️ Global Rate Limiter
+ *  Global Rate Limiter
  * Protects against DoS and automated scraping.
  */
 export const globalLimiter = rateLimit({
@@ -18,7 +18,7 @@ export const globalLimiter = rateLimit({
 });
 
 /**
- * 🔒 Auth Rate Limiter
+ * Auth Rate Limiter
  * Stricter limit for sensitive authentication routes to prevent brute-force.
  */
 export const authLimiter = rateLimit({
@@ -31,7 +31,7 @@ export const authLimiter = rateLimit({
 });
 
 /**
- * 🚫 IP Blacklist Middleware
+ * IP Blacklist Middleware
  * Rejects requests from blocked remote addresses.
  */
 const blacklistedIPs = [
@@ -50,7 +50,7 @@ export const ipBlacklist = (req, res, next) => {
 };
 
 /**
- * 🛡️ Token Revocation Check
+ * Token Revocation Check
  * Checks if the JWT is in the revocation collection (e.g. after logout).
  */
 export const checkRevokedToken = async (req, res, next) => {
@@ -74,7 +74,7 @@ export const checkRevokedToken = async (req, res, next) => {
 };
 
 /**
- * ⚔️ CSRF Check Middleware (Lightweight)
+ * CSRF Check Middleware (Lightweight)
  * Ensures requests originate from our own frontend.
  */
 export const csrfCheck = (req, res, next) => {
