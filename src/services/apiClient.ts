@@ -19,7 +19,7 @@ export const apiFetch = async (endpoint: string, options: any = {}) => {
     const response = await fetch(`${API_URL}${endpoint}`, {
       ...options,
       headers,
-      credentials: 'include', // 🍪 Send secure cookies automatically
+      credentials: 'include', // Send secure cookies automatically
     });
 
     if (!response.ok) {
@@ -57,7 +57,7 @@ export const apiFetch = async (endpoint: string, options: any = {}) => {
  */
 const apiClient = axios.create({
   baseURL: API_URL,
-  withCredentials: true, // 🍪 Send secure cookies automatically
+  withCredentials: true, //  Send secure cookies automatically
 });
 
 // Interceptor to unwrap enterprise response in Axios
