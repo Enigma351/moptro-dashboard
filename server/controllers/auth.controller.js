@@ -14,7 +14,7 @@ export const signup = asyncHandler(async (req, res) => {
 
   const { token, user } = await AuthService.signup(name, email, password);
   
-  // 🍪 Set Secure Cookie
+  //  Set Secure Cookie
   res.cookie('jwt', token, AuthService.getCookieOptions());
 
   sendSuccess(res, 201, { token, user }, 'Signup successful');
@@ -31,7 +31,7 @@ export const signin = asyncHandler(async (req, res) => {
 
   const { token, user } = await AuthService.signin(email, password);
   
-  // 🍪 Set Secure Cookie
+  // Set Secure Cookie
   res.cookie('jwt', token, AuthService.getCookieOptions());
   
   sendSuccess(res, 200, { token, user }, 'Login successful');
@@ -89,7 +89,7 @@ export const updateProfile = asyncHandler(async (req, res) => {
 });
 
 /**
- * Updates User Password
+ * Updates User Passwor
  */
 export const changePassword = asyncHandler(async (req, res) => {
   const { currentPassword, newPassword } = req.body;
