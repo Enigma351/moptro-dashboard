@@ -11,7 +11,7 @@ export default function AuthFooter() {
         <Link to="#" className="hover:text-white transition-colors">License</Link>
       </div>
       <p className="text-[12px] text-[#A0AEC0]">
-        © {currentYear}, Made with ❤️ for MOPTrO Team
+        © {currentYear}, Made with love for MOPTrO Team
       </p>
     </footer>
   );
